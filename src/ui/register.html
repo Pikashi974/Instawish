@@ -7,7 +7,7 @@
     <link rel="icon" href="/src/img/icon.png" type="image/icon type">
     <link rel="stylesheet" href="https://bootswatch.com/5/cerulean/bootstrap.css">
     <link rel="stylesheet" href="../css/index.css">
-    <title>Login Page</title>
+    <title>Register Page</title>
 </head>
 
 <body>
@@ -18,12 +18,19 @@
     justify-items: center;
 ">
             <div w3-include-html="header.html"></div>
-            <form class="" id="loginForm" method="post">
+            <h1>Inscription</h1>
+            <form class="" id="registerForm">
                 <div class="d-grid" style="justify-items: center;">
                     <div class="form-check">
                         <label class=""><span class="">Nom d’utilisateur: </span><input aria-label="Nom d’utilisateur"
                                 aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" class=""
                                 dir="" type="text" value="" name="username"></label>
+
+                    </div>
+                    <div class="form-check">
+                        <label class=""><span class="">Email: </span><input aria-label="Email" aria-required="true"
+                                autocapitalize="off" autocorrect="off" class="" type="email" value=""
+                                name="email"></label>
 
                     </div>
                     <div class="form-check">
@@ -33,27 +40,23 @@
 
                     </div>
                     <div class="">
-                        <a onclick="getLogin()" class="" disabled="" type="submit">
+                        <button class="" disabled="" type="submit">
                             <div class="">
                                 Se connecter</div>
-                            </button>
+                        </button>
                     </div>
 
                 </div>
             </form>
-            <!-- <a class="">
-                <span class="" dir="auto"
-                    style="line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 16px;">
-                    Mot de passe oublié&nbsp;?</span>
-            </a>-->
+
         </div>
         <hr>
         <div class="">
             <span class="" dir="auto"
                 style="line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 18px;">
-                <p class="">Vous n’avez pas de compte&nbsp;?
-                    <a class="" href="register.html" role="link" tabindex="0">
-                        <span class="" dir="auto">Inscrivez-vous</span>
+                <p class="">Vous avez déjà un compte&nbsp;?
+                    <a class="" href="login.html" role="link" tabindex="0">
+                        <span class="" dir="auto">Connectez-vous</span>
                     </a>
                 </p>
             </span>
@@ -61,6 +64,5 @@
     </main>
 </body>
 <script src="../js/loader.js"></script>
-<script src="../js/login.js"></script>
 
 </html>
