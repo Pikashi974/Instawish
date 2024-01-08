@@ -23,29 +23,35 @@
                 <div class="d-grid" style="justify-items: center;">
                     <div class="form-check">
                         <label class=""><span class="">Nom d’utilisateur: </span><input aria-label="Nom d’utilisateur"
-                                aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" class=""
-                                dir="" type="text" value="" name="username"></label>
+                                aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75"
+                                class="form-control" dir="" type="text" value="" name="username"></label>
 
                     </div>
                     <div class="form-check">
                         <label class=""><span class="">Email: </span><input aria-label="Email" aria-required="true"
-                                autocapitalize="off" autocorrect="off" class="" type="email" value=""
+                                autocapitalize="off" autocorrect="off" class="form-control" type="email" value=""
                                 name="email"></label>
 
                     </div>
                     <div class="form-check">
                         <label class=""><span class="">Mot de passe: </span><input aria-label="Mot de passe"
-                                aria-required="true" autocapitalize="off" autocorrect="off" class="" type="password"
-                                value="" name="password"></label>
+                                aria-required="true" autocapitalize="off" autocorrect="off" class="form-control"
+                                type="password" value="" name="password"></label>
+
+                    </div>
+                    <div class="form-check">
+                        <label class=""><span class="">Image de profil: </span>
+                            <input aria-label="Image de profil" aria-required="true" autocapitalize="off"
+                                autocorrect="off" class="form-control" type="file" value="" accept="image/*"
+                                name="image"></label>
 
                     </div>
                     <div class="">
-                        <button class="" disabled="" type="submit">
+                        <a onclick="postRegister()" class="btn btn-info" disabled="" type="submit">
                             <div class="">
-                                Se connecter</div>
-                        </button>
+                                S'enregistrer</div>
+                        </a>
                     </div>
-
                 </div>
             </form>
 
@@ -64,5 +70,6 @@
     </main>
 </body>
 <script src="../js/loader.js"></script>
+<script src="../js/register.js"></script>
 
 </html>

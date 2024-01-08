@@ -1,5 +1,7 @@
 const username = document.querySelector("[name=username]");
 const password = document.querySelector("[name=password]");
+const image = document.querySelector("[name=image]");
+const email = document.querySelector("[name=email]");
 
 async function init() {
   try {
@@ -12,9 +14,11 @@ async function init() {
 
 init();
 
-async function getLogin() {
+async function getRegistered() {
   username.classList.remove("is-invalid");
   password.classList.remove("is-invalid");
+  email.classList.remove("is-invalid");
+  img.classList.remove("is-invalid");
   var json = {};
   json.username = username.value;
   json.password = password.value;

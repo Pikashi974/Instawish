@@ -12,7 +12,6 @@ const createWindow = () => {
       contextIsolation: true,
     },
   });
-
   win.loadFile("src/ui/login.html");
 };
 app.whenReady().then(() => {
