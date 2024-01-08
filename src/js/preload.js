@@ -9,9 +9,28 @@ const { URL_ENDPOINT, DATA_SOURCE, DATABASE, COLLECTION, CONTENT_TYPE } =
 /**
  *
  * app_registration     POST       /api/register  : form (email, password, username , profilePicture = FILE )
- * @param {string} jsonObject
+ * @param {string} jsonString
  */
-function postRegister(jsonObject) {}
+function postRegister(formData) {
+  var options = {
+    method: "POST",
+    url: URL_ENDPOINT + "register",
+    headers: {
+      "content-type":
+        "multipart/form-data; boundary=---011000010111000001101001",
+    },
+    data: formData,
+  };
+
+  return axios
+    .request(options)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+}
 
 /**
  *  * app_home  GET /api/home :  POST des personnes que l'user follow 

@@ -20,39 +20,44 @@
             <div w3-include-html="header.html"></div>
             <h1>Inscription</h1>
             <form class="" id="registerForm">
-                <div class="d-grid" style="justify-items: center;">
-                    <div class="form-check">
-                        <label class=""><span class="">Nom d’utilisateur: </span><input aria-label="Nom d’utilisateur"
-                                aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75"
-                                class="form-control" dir="" type="text" value="" name="username"></label>
+                <!--   <div class="d-grid" style="justify-items: center;">-->
+                <div class="form-check">
+                    <label class=""><span class="">Nom d’utilisateur: </span><input aria-label="Nom d’utilisateur"
+                            aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75"
+                            class="form-control" dir="" type="text" value="" name="username"></label>
 
-                    </div>
-                    <div class="form-check">
-                        <label class=""><span class="">Email: </span><input aria-label="Email" aria-required="true"
-                                autocapitalize="off" autocorrect="off" class="form-control" type="email" value=""
-                                name="email"></label>
-
-                    </div>
-                    <div class="form-check">
-                        <label class=""><span class="">Mot de passe: </span><input aria-label="Mot de passe"
-                                aria-required="true" autocapitalize="off" autocorrect="off" class="form-control"
-                                type="password" value="" name="password"></label>
-
-                    </div>
-                    <div class="form-check">
-                        <label class=""><span class="">Image de profil: </span>
-                            <input aria-label="Image de profil" aria-required="true" autocapitalize="off"
-                                autocorrect="off" class="form-control" type="file" value="" accept="image/*"
-                                name="image"></label>
-
-                    </div>
-                    <div class="">
-                        <a onclick="postRegister()" class="btn btn-info" disabled="" type="submit">
-                            <div class="">
-                                S'enregistrer</div>
-                        </a>
-                    </div>
                 </div>
+                <div class="form-check">
+                    <label class=""><span class="">Email: </span><input aria-label="Email" aria-required="true"
+                            autocapitalize="off" autocorrect="off" class="form-control" type="email" value=""
+                            name="email"></label>
+
+                </div>
+                <div class="form-check">
+                    <label class=""><span class="">Mot de passe: </span><input aria-label="Mot de passe"
+                            aria-required="true" autocapitalize="off" autocorrect="off" class="form-control"
+                            type="password" value="" name="password"></label>
+
+                </div>
+                <div class="form-check">
+                    <label class=""><span class="">Confirmer le mot de passe: </span><input aria-label="Mot de passe"
+                            aria-required="true" autocapitalize="off" autocorrect="off" class="form-control"
+                            type="password" value="" name="password2"></label>
+
+                </div>
+                <div class="form-check">
+                    <label class=""><span class="">Image de profil: </span>
+                        <input aria-label="Image de profil" aria-required="true" autocapitalize="off" autocorrect="off"
+                            class="form-control" type="file" value="" accept="image/*" name="profilePicture"></label>
+
+                </div>
+                <div class="">
+                    <a onclick="getRegistered()" class="btn btn-info" disabled="" type="submit">
+                        <div class="">
+                            S'enregistrer</div>
+                    </a>
+                </div>
+                <!--</div>-->
             </form>
 
         </div>
