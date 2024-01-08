@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/src/img/icon.png" type="image/icon type">
+    <link rel="stylesheet" href="https://bootswatch.com/5/cerulean/bootstrap.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <main class="box" role="main">
+        <div class="" style="align-items: center;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+">
+            <div w3-include-html="header.html"></div>
+            <form class="" id="loginForm" method="post">
+                <div class="d-grid" style="justify-items: center;">
+                    <div class="form-check">
+                        <label class=""><span class="">Nom d’utilisateur: </span><input aria-label="Nom d’utilisateur"
+                                aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" class=""
+                                dir="" type="text" value="" name="username"></label>
+
+                    </div>
+                    <div class="form-check">
+                        <label class=""><span class="">Mot de passe: </span><input aria-label="Mot de passe"
+                                aria-required="true" autocapitalize="off" autocorrect="off" class="" type="password"
+                                value="" name="password"></label>
+
+                    </div>
+                    <div class="">
+                        <button class="" disabled="" type="submit">
+                            <div class="">
+                                Se connecter</div>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+            <a class="">
+                <span class="" dir="auto"
+                    style="line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 16px;">
+                    Mot de passe oublié&nbsp;?</span>
+            </a>
+        </div>
+        <hr>
+        <div class="">
+            <span class="" dir="auto"
+                style="line-height: var(--base-line-clamp-line-height); --base-line-clamp-line-height: 18px;">
+                <p class="">Vous n’avez pas de compte&nbsp;?
+                    <a class="" href="/accounts/emailsignup/" role="link" tabindex="0">
+                        <span class="" dir="auto">Inscrivez-vous</span>
+                    </a>
+                </p>
+            </span>
+        </div>
+    </main>
+</body>
+<script src="../js/loader.js"></script>
+
+</html>

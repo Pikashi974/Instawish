@@ -1,0 +1,13 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  width: max-content;
+  border: 1px solid black;
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+}
