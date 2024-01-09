@@ -15,7 +15,10 @@ async function getRegistered() {
   password2.classList.remove("is-invalid");
   email.classList.remove("is-invalid");
   image.classList.remove("is-invalid");
-  if (password.value == password2.value) {
+  if (
+    password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/) &&
+    password.value == password2.value
+  ) {
     try {
       let bodyFormData = new FormData(document.querySelector("#registerForm"));
       let jsonObject = {};
