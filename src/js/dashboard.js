@@ -112,15 +112,19 @@ async function addPosts() {
     let card_post = `<div class="card mb-3">
   <div class="header">
     <img src="../img/avatar2.jpg" style="width:10%; border-radius: 50%; z-index: 1;">
-    <div class="username">
+    <div class="border-round" style=" display: flex;
+  position: relative;
+  left: -5%;
+  align-items: center;">
       <span style="left: 10%; position: relative;">Texte</span>
     </div>
   </div>
   <div class="card-body">
-    <img src="" style="width:-webkit-fill-available;">
-        <p class="card-text">Description</p>
+    <img class="border-round" src="" style="width:-webkit-fill-available;">
+    <div>
+    <p class="card-text">Description</p>
         <p class="card-text">Commentaire</p>
-
+        </div>
   </div>
   <div class="card-footer text-muted">
   </div>
