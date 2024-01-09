@@ -1,0 +1,18 @@
+#posts {
+  margin: 0 20%;
+}
+.header {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+.username {
+  border-radius: 25%;
+  border: 1px solid black;
+  width: -webkit-fill-available;
+  min-height: 50px;
+  display: flex;
+  position: relative;
+  left: -5%;
+  align-items: center;
+}

@@ -6,6 +6,7 @@ const { log } = require("console");
 
 const { URL_ENDPOINT, DATA_SOURCE, DATABASE, COLLECTION, CONTENT_TYPE } =
   databaseElement;
+
 let data64 = "";
 /**
  *
@@ -225,8 +226,9 @@ function getAllUsers() {
  * @param {JSON} jsonObject
  * @return {JSON}
  */
-function addPost(jsonObject) {
-  previewFile(jsonObject);
+async function addPost(jsonObject) {
+  await previewFile(jsonObject["profilePicture"]);
+  console.log(data64);
   var options = {
     method: "POST",
     url: URL_ENDPOINT + "post/add",
@@ -251,7 +253,7 @@ function addPost(jsonObject) {
   axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     })
     .catch(function (error) {
@@ -294,6 +296,7 @@ process.once("loaded", () => {
     getInfo,
     getAllUsers,
     addPost,
+    previewFile,
   });
 });
 
