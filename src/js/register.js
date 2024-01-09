@@ -18,18 +18,16 @@ async function getRegistered() {
   if (password.value == password2.value) {
     try {
       let bodyFormData = new FormData(document.querySelector("#registerForm"));
-      console.log(bodyFormData.get("username"));
-      bodyFormData.get("username");
-      bodyFormData.get("email");
-      bodyFormData.get("password");
-      bodyFormData.get("profilePicture");
+      let jsonObject = {};
+      jsonObject["username"] = bodyFormData.get("username");
+      jsonObject["email"] = bodyFormData.get("email");
+      jsonObject["password"] = bodyFormData.get("password");
+      jsonObject["profilePicture"] = bodyFormData.get("profilePicture");
 
-      let bodyContent = bodyFormData;
+      console.log(jsonObject["profilePicture"].name);
 
-      console.log(bodyContent);
-
-      var check = await window.api.postRegister(bodyContent);
-      //   console.log(check);
+      var check = await window.api.postRegister(jsonObject);
+      console.log(check);
       if (check.status && check.status == "User created!") {
         location.href = "../ui/login.html";
         //   alert("Token generated");

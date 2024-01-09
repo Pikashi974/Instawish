@@ -9,9 +9,9 @@ const { URL_ENDPOINT, DATA_SOURCE, DATABASE, COLLECTION, CONTENT_TYPE } =
 /**
  *
  * app_registration     POST       /api/register  : form (email, password, username , profilePicture = FILE )
- * @param {string} jsonString
+ * @param {JSON} jsonObject
  */
-function postRegister(formData) {
+function postRegister(jsonObject) {
   var options = {
     method: "POST",
     url: URL_ENDPOINT + "register",
@@ -19,7 +19,18 @@ function postRegister(formData) {
       "content-type":
         "multipart/form-data; boundary=---011000010111000001101001",
     },
-    data: formData,
+    data:
+      '-----011000010111000001101001\r\nContent-Disposition: form-data; name="username"\r\n\r\n' +
+      jsonObject["username"] +
+      '\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="email"\r\n\r\n' +
+      jsonObject["email"] +
+      '\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="password"\r\n\r\n' +
+      jsonObject["password"] +
+      '\r\n-----011000010111000001101001\r\nContent-Disposition: form-data; name="profilePicture"; filename="' +
+      jsonObject["profilePicture"].name +
+      '"\r\nContent-Type: ' +
+      jsonObject["profilePicture"].type +
+      "\r\n\r\n\r\n-----011000010111000001101001--\r\n",
   };
 
   return axios
@@ -110,6 +121,7 @@ function getInfo() {
   return axios
     .request(options)
     .then(function (response) {
+      console.log(response);
       return response.data;
     })
     .catch(function (error) {
