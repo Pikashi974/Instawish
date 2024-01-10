@@ -3,7 +3,8 @@ src/database
 target
 out
 .env
-auth_config.json
+//auth_config.json
 *.docx
 *.odt
+*.odt#
 !spec/*.odt
