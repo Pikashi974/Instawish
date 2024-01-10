@@ -7,4 +7,5 @@ out
 *.docx
 *.odt
 *.odt#
+*.pdf
 !spec/*.odt
