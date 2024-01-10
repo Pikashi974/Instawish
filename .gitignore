@@ -4,3 +4,6 @@ target
 out
 .env
 auth_config.json
+*.docx
+*.odt
+!spec/*.odt

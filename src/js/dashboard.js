@@ -37,6 +37,7 @@ picture.addEventListener("change", () => {
 myPosts.addEventListener("click", async () => {
   await showPosts(localStorage.id);
 });
+discover.addEventListener("click", getListUsers);
 logoutButton.addEventListener("click", () => {
   api.logout();
 });
@@ -241,4 +242,12 @@ async function toggleLike(id) {
   } else {
     valueLike.innerHTML = parseInt(valueLike.innerHTML) - 1;
   }
+}
+async function getListUsers() {
+  let listUsers = await api.getAllUsers();
+  let idFollowings = followings.map((element) => element.following.id);
+  let listeSuggestions = Object.keys(listUsers).filter(
+    (element) => idFollowings.includes(listUsers[element].id) == false
+  );
+  console.log(listeSuggestions);
 }
