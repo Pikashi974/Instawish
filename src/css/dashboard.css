@@ -12,3 +12,49 @@
   width: -webkit-fill-available;
   min-height: 50px;
 }
+#avatarZone {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+#addZone {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+div#header {
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+div#navbarElements {
+  grid-template-columns: 33% 33% 33%;
+  margin: 0 2%;
+}
+.notification {
+  border: 1px black solid;
+  /* background-color: #555; */
+  color: black;
+  text-decoration: none;
+  padding: 2%;
+  position: relative;
+  display: inline-block;
+  border-radius: 25%;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.notification .badge {
+  z-index: 1;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}

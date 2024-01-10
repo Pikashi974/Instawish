@@ -5,7 +5,7 @@ async function init() {
   try {
     var test = await window.api.getPage();
     if (test.status == 200) {
-      location.href = "../ui/dashboard.html";
+      location.href = "/dashboard";
     }
   } catch (error) {}
 }
@@ -30,7 +30,7 @@ async function getLogin() {
         localStorage.setItem(key, infoClient[key])
       );
 
-      location.href = "../ui/dashboard.html";
+      location.href = "/dashboard";
       //   alert("Token generated");
     } else {
       username.classList.add("is-invalid");

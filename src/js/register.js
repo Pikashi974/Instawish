@@ -32,7 +32,7 @@ async function getRegistered() {
       var check = await window.api.postRegister(jsonObject);
       console.log(check);
       if (check.status && check.status == "User created!") {
-        location.href = "../ui/login.html";
+        location.href = "/src/ui/login.html";
         //   alert("Token generated");
       } else {
         username.classList.add("is-invalid");

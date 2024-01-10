@@ -3,33 +3,41 @@ const headerElement = document.querySelector("#header");
 const description = document.querySelector("input[name='description']");
 const picture = document.querySelector("input[name='picture']");
 const postList = document.querySelector("#posts");
+const logoutButton = document.querySelector("#logoutButton");
+const myPosts = document.querySelector("#myPosts");
 
-let image = `<img src="../img/avatar2.jpg" style="width:5%; border-radius: 50%;">`;
+let image = `<img src="/src/img/avatar2.jpg" style="width:5%; border-radius: 50%;">`;
 let data64,
   followers,
+  posts,
   followings = "";
+
 async function init() {
   if (await api.getInfo()) {
     changeAvatar();
     appendFollowings();
     appendFollowers();
-    addPosts();
+    posts = await api.getPage();
+    posts = posts.data;
+    addPosts(posts);
   } else {
-    localStorage.clear();
-    location.href = "login.html";
+    api.logout();
   }
 }
 
 init();
 
-headerElement.addEventListener(
-  "click",
-  () => (location.href = "dashboard.html")
-);
+headerElement.addEventListener("click", () => (location.href = "/dashboard"));
 picture.addEventListener("change", () => {
   if (picture.files[0]) {
     api.previewFile(picture.files[0]);
   }
+});
+myPosts.addEventListener("click", async () => {
+  await showMyPosts();
+});
+logoutButton.addEventListener("click", () => {
+  api.logout();
 });
 
 async function appendFollowers() {
@@ -50,7 +58,7 @@ async function appendFollowings() {
     followings = followings.followings;
     var imageTemplate = `<div class="">
   <div class="d-flex" style="flex-direction: column;align-content: center;align-items: center;justify-content: center;">
-  <img src="../img/avatar2.jpg" style="width:5%; border-radius: 50%;">
+  <img src="/src/img/avatar2.jpg" style="width:5%; border-radius: 50%;">
   <span>Texte</span>
   </div>
   </div>`;
@@ -59,7 +67,7 @@ async function appendFollowings() {
       var image = imageTemplate;
       if (element.following.image) {
         image = image.replace(
-          'src="../img/avatar2.jpg"',
+          'src="/src/img/avatar2.jpg"',
           'src="https://symfony-instawish.formaterz.fr' +
             element.following.image +
             '"'
@@ -79,6 +87,7 @@ function changeAvatar() {
       "https://symfony-instawish.formaterz.fr" + localStorage.imageUrl;
   }
 }
+
 async function formAddPost() {
   description.classList.remove("is-invalid");
   picture.classList.remove("is-invalid");
@@ -88,12 +97,12 @@ async function formAddPost() {
     jsonObject["description"] = bodyFormData.get("description");
     jsonObject["picture"] = bodyFormData.get("picture");
 
-    console.log(jsonObject["picture"].name);
+    console.log(jsonObject);
 
     var check = await window.api.addPost(jsonObject);
     console.log(check);
     if (check) {
-      location.href = "../ui/dashboard.html";
+      location.href = "/dashboard";
       //   alert("Token generated");
     } else {
       description.classList.add("is-invalid");
@@ -105,13 +114,11 @@ async function formAddPost() {
   }
 }
 // function addFollowables() {}
-async function addPosts() {
+async function addPosts(posts) {
   try {
-    let posts = await api.getPage();
-    posts = posts.data;
     let card_post = `<div class="card mb-3">
   <div class="header">
-    <img src="../img/avatar2.jpg" style="width:10%; border-radius: 50%; z-index: 1;">
+    <img src="/src/img/avatar2.jpg" style="width:10%; border-radius: 50%; z-index: 1;">
     <div class="border-round" style=" display: flex;
   position: relative;
   left: -5%;
@@ -121,12 +128,25 @@ async function addPosts() {
   </div>
   <div class="card-body">
     <img class="border-round" src="" style="width:-webkit-fill-available;">
+    <hr>
     <div>
     <p class="card-text">Description</p>
         <p class="card-text">Commentaire</p>
         </div>
   </div>
   <div class="card-footer text-muted">
+    <a href="#" class="notification">
+      <i class="bi bi-chat-left"></i>
+      <span class="badge" id="comment">3</span>
+    </a>
+    <a href="#" class="notification">
+      <i class="bi bi-heart"></i>
+      <span class="badge">3</span>
+    </a>
+    <a href="#" class="notification">
+      <i class="bi bi-send"></i>
+      <span class="badge">3</span>
+    </a>
   </div>
 </div>
 `;
@@ -135,7 +155,7 @@ async function addPosts() {
       var card = card_post;
       if (element.createdBy.imageUrl) {
         card = card.replace(
-          'src="../img/avatar2.jpg"',
+          'src="/src/img/avatar2.jpg"',
           'src="https://symfony-instawish.formaterz.fr' +
             element.createdBy.imageUrl +
             '"'
@@ -173,4 +193,11 @@ async function addPosts() {
   } catch (error) {
     console.log(error);
   }
+}
+async function showMyPosts() {
+  postList.innerHTML = "";
+  let postObject = await api.getPostUser(localStorage.id);
+  // postObject = postObject.data;
+  console.log(postObject);
+  addPosts(postObject);
 }
