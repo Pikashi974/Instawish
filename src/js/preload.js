@@ -421,17 +421,20 @@ async function removePost(idPOST) {
 }
 /**
  * app_add_comment      POST  /api/comment/add/{idPOST}  : json (content)
- * @param {JSON} jsonContent
+ * @param {string} texte
  * @param {string | number} idPOST
  * @return {JSON}
  */
-function addComment(jsonContent, idPOST) {
+function addComment(texte, idPOST) {
+  let jsonContent = {};
+  jsonContent["content"] = texte;
   var options = {
     method: "POST",
     url: URL_ENDPOINT + "comment/add/" + idPOST,
     headers: {
       Accept: "*/*",
       "Content-Type": "application/" + CONTENT_TYPE,
+      Authorization: `Bearer ${localStorage.token}`,
     },
     data: jsonContent,
   };
@@ -459,6 +462,7 @@ function editComment(jsonContent, idCOMMENT) {
     headers: {
       Accept: "*/*",
       "Content-Type": "application/" + CONTENT_TYPE,
+      Authorization: `Bearer ${localStorage.token}`,
     },
     data: jsonContent,
   };
@@ -484,6 +488,7 @@ function removeComment(idCOMMENT) {
     url: URL_ENDPOINT + "comment/remove/" + idCOMMENT,
     headers: {
       Accept: "*/*",
+      Authorization: `Bearer ${localStorage.token}`,
     },
   };
 
@@ -510,10 +515,11 @@ function toggleLike(idPOST) {
     url: URL_ENDPOINT + "liked/" + idPOST,
     headers: {
       Accept: "*/*",
+      Authorization: `Bearer ${localStorage.token}`,
     },
   };
 
-  axios
+  return axios
     .request(options)
     .then(function (response) {
       console.log(response.data);

@@ -42,10 +42,12 @@ div#navbarElements {
   position: relative;
   display: inline-block;
   border-radius: 25%;
+  cursor: pointer;
 }
 
 .notification:hover {
-  background: red;
+  color: white;
+  background: black;
 }
 
 .notification .badge {
@@ -57,4 +59,11 @@ div#navbarElements {
   border-radius: 50%;
   background: red;
   color: white;
+}
+
+.notification.liked {
+  z-index: 1;
+
+  border: 1px red solid;
+  color: red;
 }

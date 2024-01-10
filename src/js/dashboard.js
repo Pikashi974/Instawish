@@ -5,6 +5,7 @@ const picture = document.querySelector("input[name='picture']");
 const postList = document.querySelector("#posts");
 const logoutButton = document.querySelector("#logoutButton");
 const myPosts = document.querySelector("#myPosts");
+const discover = document.querySelector("#discover");
 
 let image = `<img src="/src/img/avatar2.jpg" style="width:5%; border-radius: 50%;">`;
 let data64,
@@ -34,7 +35,7 @@ picture.addEventListener("change", () => {
   }
 });
 myPosts.addEventListener("click", async () => {
-  await showMyPosts();
+  await showPosts(localStorage.id);
 });
 logoutButton.addEventListener("click", () => {
   api.logout();
@@ -116,88 +117,128 @@ async function formAddPost() {
 // function addFollowables() {}
 async function addPosts(posts) {
   try {
-    let card_post = `<div class="card mb-3">
+    for (let index = 0; index < posts.length; index++) {
+      const element = posts[index];
+      let imageUser = "/src/img/avatar2.png";
+      if (element.createdBy.imageUrl) {
+        imageUser =
+          "https://symfony-instawish.formaterz.fr" + element.createdBy.imageUrl;
+      }
+      let imagePost = "";
+      if (element.imageUrl) {
+        imagePost = "https://symfony-instawish.formaterz.fr" + element.imageUrl;
+      }
+      let nbComments = element.comments.length;
+      let liked = element.likeds.find(
+        (element) => element.user.id == localStorage.id
+      )
+        ? "liked"
+        : "";
+      var card = `<div class="card mb-3" id="post${element.id}" value="${element.id}">
   <div class="header">
-    <img src="/src/img/avatar2.jpg" style="width:10%; border-radius: 50%; z-index: 1;">
+    <img src="${imageUser}" style="width:10%; border-radius: 50%; z-index: 1;">
     <div class="border-round" style=" display: flex;
   position: relative;
   left: -5%;
   align-items: center;">
-      <span style="left: 10%; position: relative;">Texte</span>
+      <span style="left: 10%; position: relative;">${element.createdBy.username}</span>
     </div>
   </div>
   <div class="card-body">
-    <img class="border-round" src="" style="width:-webkit-fill-available;">
+    <img class="border-round" src="${imagePost}" style="width:-webkit-fill-available;">
     <hr>
     <div>
-    <p class="card-text">Description</p>
-        <p class="card-text">Commentaire</p>
+    <p class="card-text">${element.description}</p>
         </div>
   </div>
   <div class="card-footer text-muted">
-    <a href="#" class="notification">
+    <a class="notification" onclick="showMessages('${element.id}')">
       <i class="bi bi-chat-left"></i>
-      <span class="badge" id="comment">3</span>
+      <span class="badge" id="nbComments${element.id}">${nbComments}</span>
     </a>
-    <a href="#" class="notification">
+    <a class="notification ${liked}" id="buttonLike${element.id}" onclick="toggleLike('${element.id}')">
       <i class="bi bi-heart"></i>
-      <span class="badge">3</span>
+      <span class="badge" id="nbLikes${element.id}">${element.likeds.length}</span>
     </a>
-    <a href="#" class="notification">
+    <div class="d-none" id="listeComments${element.id}">
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Commentez cette image" aria-label="Commentez cette image" id="commentPoste${element.id}">
+      <button class="btn notification" type="button" onclick="sendMessage('${element.id}')">
       <i class="bi bi-send"></i>
-      <span class="badge">3</span>
-    </a>
+      </button>
+    </div>
+
   </div>
 </div>
 `;
-    for (let index = 0; index < posts.length; index++) {
-      const element = posts[index];
-      var card = card_post;
-      if (element.createdBy.imageUrl) {
-        card = card.replace(
-          'src="/src/img/avatar2.jpg"',
-          'src="https://symfony-instawish.formaterz.fr' +
-            element.createdBy.imageUrl +
-            '"'
-        );
-        card = card.replace("Texte", element.createdBy.username);
-
-        card = card.replace("Description", element.description);
-        let nbComments = element.comments.length;
-        switch (nbComments) {
-          case 0:
-            card = card.replace("Commentaire", "Aucun commentaire");
-            break;
-          case 1:
-            card = card.replace(
-              "Commentaire",
-              `Voir ${nbComments} commentaire`
-            );
-            break;
-          default:
-            card = card.replace(
-              "Commentaire",
-              `Voir les ${nbComments} commentaires`
-            );
-            break;
-        }
-      }
-      if (element.imageUrl) {
-        card = card.replace(
-          'src=""',
-          'src="https://symfony-instawish.formaterz.fr' + element.imageUrl + '"'
-        );
-      }
+      // switch (nbComments) {
+      //   case 0:
+      //     card = card.replace("Commentaire", "Aucun commentaire");
+      //     break;
+      //   case 1:
+      //     card = card.replace("Commentaire", `Voir ${nbComments} commentaire`);
+      //     break;
+      //   default:
+      //     card = card.replace(
+      //       "Commentaire",
+      //       `Voir les ${nbComments} commentaires`
+      //     );
+      //     break;
+      // }
       postList.innerHTML += card;
     }
   } catch (error) {
     console.log(error);
   }
 }
-async function showMyPosts() {
+async function showPosts(id) {
   postList.innerHTML = "";
-  let postObject = await api.getPostUser(localStorage.id);
+  let postObject = await api.getPostUser(id);
   // postObject = postObject.data;
   console.log(postObject);
   addPosts(postObject);
+}
+
+function showMessages(id) {
+  let postSelected = posts.find((element) => element.id == id);
+  let comments = postSelected.comments;
+  let divComments = document.querySelector(`#listeComments${id}`);
+  if (divComments.classList.contains("d-none")) {
+    divComments.innerHTML = "";
+    for (let index = 0; index < comments.length; index++) {
+      const element = comments[index];
+      const date = new Date(element.createdAt.timestamp);
+      divComments.innerHTML += `
+      <div class="comment mt-4 text-justify float-left">
+        <img src="${
+          "https://symfony-instawish.formaterz.fr" + element.user.imageUrl
+        }" alt="" class="rounded-circle" width="40" height="40">
+        <h4>${element.user.email}</h4>
+        <span>${date.getDate()} ${date.toLocaleString("default", {
+        month: "long",
+      })} ${date.getFullYear()} ${date.toLocaleTimeString()}</span>
+        <br>
+        <p>${element.content}</p>
+      </div>
+      `;
+    }
+  }
+  divComments.classList.toggle("d-none");
+}
+async function sendMessage(id) {
+  let texte = document.querySelector(`#commentPoste${id}`).value;
+  let check = await api.addComment(texte, id);
+  location.reload();
+}
+async function toggleLike(id) {
+  let request = await api.toggleLike(id);
+  let valueLike = document.querySelector(`#nbLikes${id}`);
+  let buttonLike = document.querySelector(`#buttonLike${id}`);
+  buttonLike.classList.toggle("liked");
+  if (request.liked == 1) {
+    valueLike.innerHTML = parseInt(valueLike.innerHTML) + 1;
+  } else {
+    valueLike.innerHTML = parseInt(valueLike.innerHTML) - 1;
+  }
 }
